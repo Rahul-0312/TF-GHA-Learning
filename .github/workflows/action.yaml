@@ -1,0 +1,10 @@
+name: This is my first workflow
+
+on: push
+
+jobs:
+  First-Job:
+    runs-on: ubuntu-latest
+      steps:
+        - name: Echo the name
+        - run: echo "This is echoed using github variables: ${{ github.name }}"
