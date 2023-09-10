@@ -3,9 +3,10 @@ name: This is my first workflow
 on: push
 
 jobs:
-  First-Job:
+  Dev-Check:
+    if: ${{ github.ref }} == 'refs/heads/dev'
     runs-on: ubuntu-latest
     steps:
-      - name: Echo the name
+      - name: Dev Run
         run: |
-          echo "This is echoed!!"
+          echo "This is running on Dev!"
