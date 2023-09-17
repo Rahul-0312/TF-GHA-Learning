@@ -3,7 +3,7 @@ name: This is my first workflow
 on: push
 
 env:
-  GITHUB_REF: ${{ github.ref }}
+  REF: ${{ github.ref }}
 
 jobs:
   Dev-Check:
@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Dev Run
         run: |
-          echo "This is running on ${{ env.GTIHUB_REF }}"
+          echo "This is running on $REF"
