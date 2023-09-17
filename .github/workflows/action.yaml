@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Dev Run
         run: |
-          echo "This is running on $REF"
+          echo "This is running on ${{ env.REF }}"
