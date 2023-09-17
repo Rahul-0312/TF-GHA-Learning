@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Dev Run
         run: |
-          echo "This is running on $GTIHUB_REF"
+          echo "This is running on ${GTIHUB_REF}"
