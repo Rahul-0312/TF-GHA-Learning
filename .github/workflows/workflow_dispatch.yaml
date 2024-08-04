@@ -1,0 +1,11 @@
+name: Basic Workflow Dispatch
+
+on: 
+    workflow_dispatch:
+
+jobs:
+    Greet-the-initiatior:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get Initiator Name
+              run: echo 'Hello ${{ github.actor }}'
