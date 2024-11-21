@@ -4,7 +4,7 @@ resource "azurerm_resource_group" "gotham_rg" {
 }
 
 resource "azurerm_storage_account" "example" {
-  name                     = "GothamDepot"
+  name                     = "gothamarchives"
   resource_group_name      = azurerm_resource_group.gotham_rg.name
   location                 = azurerm_resource_group.gotham_rg.location
   account_tier             = "Standard"
