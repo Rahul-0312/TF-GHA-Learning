@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 jobs:
   terraform-plan:
@@ -75,7 +76,7 @@ jobs:
       - name: Seek Approval
         uses: trstringer/manual-approval@v1
         with:
-            secret: ${{ github.token }}
+            secret: ${{ github.TOKEN }}
             approvers: Rahul-0312
             minimum-approvals: 1
             issue-title: "${{ github.actor }} is seeking TF Apply Approval"
