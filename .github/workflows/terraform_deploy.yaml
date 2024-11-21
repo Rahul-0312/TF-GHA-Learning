@@ -72,6 +72,14 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -input=false
 
+      - name: Seek Approval
+        uses: trstringer/manual-approval@v1
+        with:
+            secret: ${{ github.token }}
+            approvers: Rahul-0312
+            minimum-approvals: 1
+            issue-title: "${{ github.actor }} is seeking TF Apply Approval"
+            issue-body: "Please can you approve or deny the deployment the TF resources."
+
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/"main"'
         run: terraform apply -auto-approve -input=false
