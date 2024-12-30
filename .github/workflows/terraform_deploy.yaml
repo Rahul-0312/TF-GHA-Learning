@@ -2,7 +2,7 @@ name: "Terraform Deploy - Azure Resources"
 
 on:
   pull_request:
-    branches:
+    branches-ignore:
         - main
         - batman-strgac
 
