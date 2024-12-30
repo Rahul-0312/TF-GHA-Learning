@@ -1,11 +1,27 @@
-name: Basic Workflow Dispatch
+name: Workflow Dispatch
 
 on: 
     workflow_dispatch:
+        inputs:
+            initiator:
+                description: 'Who initiated the workflow?'
+                required: true
+                type: string
+            initiator_machine:
+                description: 'Which machine was used to initiate the workflow?'
+                required: true
+                type: choice
+                options:
+                    - Mac Mini
+                    - MacBook
+                    - Windows PC
 
 jobs:
-    Greet-the-initiatior:
+    Initiatior-Details:
         runs-on: ubuntu-latest
         steps:
             - name: Get Initiator Name
-              run: echo 'Hello ${{ github.actor }}'
+              run: echo 'Hello ${{ inputs.initiator }}'
+
+            - name: Display Initiator Machine
+              run: echo 'Hello ${{ inputs.initiator_machine }}'
