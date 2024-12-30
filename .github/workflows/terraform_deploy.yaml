@@ -42,7 +42,7 @@ jobs:
         run: terraform plan -input=false
 
   terraform-apply:
-    if: github.branch == "main"
+    if: github.branch == 'main'
     needs: terraform-plan
     name: "Terraform Apply"
     runs-on: ubuntu-latest
