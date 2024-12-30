@@ -1,0 +1,14 @@
+name: Webhook - Repository Dispatch Workflow
+
+on:
+  repository_dispatch:
+    types: [webhook]
+
+jobs:
+  external_webhook:
+    name: External Webhook
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Display External Webhook Message
+      run: echo 'External Message - ${{ github.event.client_payload.message }}'
