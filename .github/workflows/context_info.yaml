@@ -9,8 +9,8 @@ jobs:
   display_context:
     name: Display GitHub Context Information
     runs-on: ubuntu-latest
-    outputs:
-      jobOutput: $ {{ steps.job_info.outputs.job_info }}
+    # outputs:
+    #   jobOutput: $ {{ steps.job_info.outputs.job_info }}
     steps:
       - name: Display Job Information
         id: job_info
