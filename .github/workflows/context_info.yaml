@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Display Job Information
-        run: echo "Job Information - ${{ toJson(job) }}" >> $GITHUB_OUTPUT
+        run: echo "Job Information was stored here previously." >> $GITHUB_OUTPUT
       
       - name: Display Steps Information
         run: echo "Steps Information - ${{ toJson(steps) }}"
