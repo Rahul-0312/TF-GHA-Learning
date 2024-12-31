@@ -47,7 +47,7 @@ jobs:
         run: echo "The branch is ${{ github.branch }}"
 
   terraform-apply:
-    if: github.branch == 'main'
+    if: github.ref == 'refs/heads/main'
     needs: terraform-plan
     name: "Terraform Apply"
     runs-on: ubuntu-latest
