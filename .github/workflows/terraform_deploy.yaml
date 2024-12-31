@@ -4,7 +4,9 @@ on:
   pull_request:
     branches:
         - main
-        - batman-strgac
+  push:
+    branches:
+        - main
 
 permissions:
   contents: read
@@ -42,6 +44,7 @@ jobs:
         run: terraform plan -input=false
 
   terraform-apply:
+    if: github.branch == 'main'
     needs: terraform-plan
     name: "Terraform Apply"
     runs-on: ubuntu-latest
