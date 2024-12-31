@@ -43,6 +43,9 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -input=false
 
+      - name: Display GitHub Branch
+        run: echo "The branch is ${{ github.branch }}"
+
   terraform-apply:
     if: github.branch == 'main'
     needs: terraform-plan
