@@ -19,7 +19,7 @@ jobs:
         run: echo "This is GHA which has three triggers. ${{ github.event }}"
 
   comment-on-issue:
-    if: github.event == 'issues'
+    if: github.event_name == 'issues'
     name: "Comment on Issue"
     runs-on: ubuntu-latest
     steps:
