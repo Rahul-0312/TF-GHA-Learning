@@ -16,4 +16,4 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Echo Description
-              run: echo "This is GHA which has three triggers. ${{ github.event_name }}"
+              run: echo "This is GHA which has three triggers. ${{ github.event }}"
