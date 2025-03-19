@@ -8,12 +8,26 @@ on:
     branches:
       - main
   issues:
-    types: opened
+    types: [opened, edited]
 
 jobs:
-    multi-event-job:
-        name: "Multi-Event Job"
-        runs-on: ubuntu-latest
-        steps:
-            - name: Echo Description
-              run: echo "This is GHA which has three triggers. ${{ github.event }}"
+  multi-event-job:
+    name: "Multi-Event Job"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo Description
+        run: echo "This is GHA which has three triggers. ${{ github.event }}"
+
+  comment-on-issue:
+    if: github.event == 'issues'
+    name: "Comment on Issue"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add a comment to the issue
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Thank you for opening this issue!
+            We will get back to you shortly.
