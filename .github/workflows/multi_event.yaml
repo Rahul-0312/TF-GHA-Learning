@@ -10,6 +10,9 @@ on:
   issues:
     types: [opened, edited]
 
+permissions:
+  issues: write
+
 jobs:
   multi-event-job:
     name: "Multi-Event Job"
