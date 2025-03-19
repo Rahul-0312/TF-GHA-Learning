@@ -1,0 +1,21 @@
+# name: GitHub Context Information
+
+# on:
+#   push:
+#     branches:
+#       - MacMini-0002
+
+# jobs:
+#   display_context:
+#     name: Display GitHub Context Information
+#     runs-on: ubuntu-latest
+#     # outputs:
+#     #   jobOutput: $ {{ steps.job_info.outputs.job_info }}
+#     steps:
+#       - name: Display Job Information
+#         id: job_info
+#         run: echo "response=Job Information was stored here previously." >> $GITHUB_OUTPUT
+      
+#       - name: Display Steps Information
+#         id: steps_info
+#         run: echo "Steps Information - ${{ toJson(steps) }}"

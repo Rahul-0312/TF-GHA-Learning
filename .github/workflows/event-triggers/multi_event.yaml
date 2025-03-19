@@ -1,0 +1,19 @@
+name: Multi-Event Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  issues:
+    types: opened
+
+jobs:
+    multi-event-job:
+        name: "Multi-Event Job"
+        runs-on: ubuntu-latest
+        steps:
+            - name: Echo Description
+              run: echo "This is GHA which has three triggers. ${{ github.event_name }}"
