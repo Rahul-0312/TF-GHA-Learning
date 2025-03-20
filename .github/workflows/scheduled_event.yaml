@@ -3,9 +3,9 @@
 
 name: Scheduled Event Workflow
 
-on: workflow_dispatch
-#   schedule:
-#     - cron: "0 8 * * 1"
+on:
+  schedule:
+    - cron: "48 6 * * 4"
 
 permissions: 
   contents: write
