@@ -60,7 +60,7 @@ jobs:
         run: |
           echo 'Workflow - ${{ env.workflow-level }}'
           echo 'Job - ${{ env.job-level }}'
-          echo 'job-level=Updated Job Value >> $GITHUB_OUTPUT'
+          echo 'job-level=Updated Job Value >> $GITHUB_ENV'
           echo 'Step - ${{ env.step-level }}'
 
   variables-job:
