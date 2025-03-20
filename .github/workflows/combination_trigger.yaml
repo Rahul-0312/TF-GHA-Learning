@@ -60,7 +60,6 @@ jobs:
         run: |
           echo 'Workflow - ${{ env.workflow_level }}'
           echo 'Job - ${{ env.job_level }}'
-          echo 'job_level=Updated Job Value' >> $GITHUB_ENV
           echo 'job_level=Updated Job Value' >> $GITHUB_OUTPUT # Store it as output
           echo 'Step - ${{ env.step_level }}'
 
