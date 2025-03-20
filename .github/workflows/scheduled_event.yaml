@@ -18,7 +18,7 @@ jobs:
     
       - name: Install Dependencies
         working-directory: Scripts
-        run: pip install -r requirement.txt
+        run: pip install -r requirements.txt
       
       - name: Execute Script
         working-directory: Scripts
