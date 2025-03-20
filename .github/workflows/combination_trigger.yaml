@@ -45,6 +45,6 @@ jobs:
         env:
             step-level: "Step Level Value"
         run: |
-            echo 'Workflow - ${{ env.workflow-level }}
-            echo 'Job - ${{ env.job-level }}
-            echo 'Step - ${{ env.step-level }}
+            echo 'Workflow - ${{ env.workflow-level }}'
+            echo 'Job - ${{ env.job-level }}'
+            echo 'Step - ${{ env.step-level }}'
