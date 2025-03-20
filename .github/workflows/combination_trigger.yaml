@@ -19,15 +19,16 @@ jobs:
   conditional-check:
     name: Condition Check Job
     runs-on: ubuntu-latest
-    env:
-        secret_code: ${{ secrets.CODE }}
 
     steps:
       - name: Passed the check
         id: pass
-        if: ${{ inputs.code }} == ${{ env.secret_code }}
-        run: echo 'The user has passed the check ${{ env.secret_code }} ${{ inputs.code }}'
+        run: |
+            if [[ "${{ inputs.code }}" == "$ {{ env.secret_code }}" ]]; then
+                echo "result=passed" >> $GITHUB_ENV
+            else
+                echo "result=failed" >> $GITHUB_ENV
 
       - name: Failed the check
-        if: steps.pass.outcome == 'skipped'
+        if: env.result == 'failed'
         run: echo 'The user has failed the check'
