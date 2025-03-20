@@ -25,14 +25,18 @@ jobs:
     steps:
       - name: Passed the check
         id: pass
-        run: |
-            if [[ "${{ inputs.code }}" == "${{ env.secret_code }}" ]]; then
-                echo "result=passed" >> $GITHUB_ENV
-                echo 'The user has passed the check'
-            else
-                echo "result=failed" >> $GITHUB_ENV
-            fi
+        if: ${{ inputs.code }} == ${{ env.secret_code }}
+        run: | 
+            echo 'The user has passed the check'
+            echo "result=passed" >> $GITHUB_ENV
+        # run: |
+        #     if [[ ]]; then
+        #         echo "result=passed" >> $GITHUB_ENV
+        #         echo 'The user has passed the check'
+        #     else
+        #         echo "result=failed" >> $GITHUB_ENV
+        #     fi
 
       - name: Failed the check
-        if: env.result == 'failed'
+        if: env.result != 'passed'
         run: echo 'The user has failed the check'
