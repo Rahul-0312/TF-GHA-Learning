@@ -44,7 +44,7 @@ jobs:
       - name: Echo Multi-Level ENV Variables
         env:
             step-level: "Step Level Value"
-        if: env.workflow-level == 'Workflow'
+        if: env.workflow-level == 'Workflow Level'
         run: |
             echo 'Workflow - ${{ env.workflow-level }}'
             echo 'Job - ${{ env.job-level }}'
