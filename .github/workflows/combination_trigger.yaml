@@ -28,7 +28,8 @@ jobs:
                 echo "result=passed" >> $GITHUB_ENV
             else
                 echo "result=failed" >> $GITHUB_ENV
-
+            fi
+            
       - name: Failed the check
         if: env.result == 'failed'
         run: echo 'The user has failed the check'
