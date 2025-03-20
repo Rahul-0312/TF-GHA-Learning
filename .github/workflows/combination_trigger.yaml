@@ -31,6 +31,7 @@ jobs:
             else
                 echo "result=failed" >> $GITHUB_ENV
             fi
+            echo 'The user has passed the check'
 
       - name: Failed the check
         if: env.result == 'failed'
