@@ -1,0 +1,31 @@
+name: Manual Trigger Wokflow | Basic Calculator
+
+on: 
+    workflow_dispatch:
+        inputs:
+            operation:
+                description: 'The operation to perform'
+                required: true
+                type: choice
+                options:
+                    - '+'
+                    - '-'
+                    - '*'
+                    - '/'
+            first-operand:
+                description: 'The first operand'
+                required: true
+                type: number
+            second-operand:
+                description: 'The second operand'
+                required: true
+                type: number
+
+jobs:
+    calculate:
+        name: Perform calculation
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Echo the output
+              run: echo ${{ inputs.first-operand }} ${{ inputs.operation }} ${{ inputs.second-operand }} | bc
