@@ -77,6 +77,6 @@ jobs:
           step-level: "Step Level Value"
         run: |
           echo 'Workflow - ${{ env.workflow-level }}'
-          echo 'Job - ${{ env.job-level }}'
+          echo 'Job - ${{ needs.multi-level-var-job.outputs.job-level }}'
           echo 'Step - ${{ env.step-level }}'
           echo 'The code user entered - ${{ inputs.code }}'
