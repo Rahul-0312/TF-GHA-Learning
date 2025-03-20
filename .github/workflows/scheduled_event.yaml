@@ -1,0 +1,38 @@
+# Problem Statement: Create a workflow that runs a specific job every Monday at 8 AM UTC.
+# The job should check out the repository, run a script that generates a weekly report, and then commit and push the report to a specific branch.
+
+name: Scheduled Event Workflow
+
+on:
+#   schedule:
+#     - cron: "0 8 * * 1"
+  workflow_dispatch
+
+jobs:
+  run-weekly-report:
+    name: Run Weekly Report
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+    
+      - name: Install Dependencies
+        working-directory: Scripts
+        run: pip install -r requirement.txt
+      
+      - name: Execute Script
+        working-directory: Scripts
+        run: python weekly_report.py
+
+      - name: Get Today's Date
+        run: echo "todays_date=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
+      
+      - name: Push & Commit
+        uses: test-room-7/action-update-file@v1
+        with:
+            file-path: "Scripts/sales_report.csv"
+            commit-msg: Weekly Report Updated for $todays_date
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            branch: weekly_sales_report
+        
