@@ -5,7 +5,7 @@ name: Scheduled Event Workflow
 
 on:
   schedule:
-    - cron: "48 6 * * 4"
+    - cron: "55 6 * * 4"
 
 permissions: 
   contents: write
