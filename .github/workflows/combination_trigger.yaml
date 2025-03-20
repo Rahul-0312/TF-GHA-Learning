@@ -28,10 +28,10 @@ jobs:
         run: |
             if [[ "${{ inputs.code }}" == "${{ env.secret_code }}" ]]; then
                 echo "result=passed" >> $GITHUB_ENV
+                echo 'The user has passed the check'
             else
                 echo "result=failed" >> $GITHUB_ENV
             fi
-            echo 'The user has passed the check'
 
       - name: Failed the check
         if: env.result == 'failed'
