@@ -1,39 +1,39 @@
-# # Problem Statement: Create a workflow that triggers on multiple events such as push, pull_request, and issues.
-# # The workflow should build and test the code when a push or pull request occurs, and add a comment to an issue when it is opened or edited.
+# Problem Statement: Create a workflow that triggers on multiple events such as push, pull_request, and issues.
+# The workflow should build and test the code when a push or pull request occurs, and add a comment to an issue when it is opened or edited.
 
-# name: Multi-Event Workflow
+name: Multi-Event Workflow
 
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     branches:
-#       - main
-#   issues:
-#     types: [opened, edited]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  issues:
+    types: [opened, edited]
 
-# permissions:
-#   issues: write
+permissions:
+  issues: write
 
-# jobs:
-#   multi-event-job:
-#     name: "Multi-Event Job"
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Echo Description
-#         run: echo "This is GHA which has three triggers. ${{ github.event }}"
+jobs:
+  multi-event-job:
+    name: "Multi-Event Job"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo Description
+        run: echo "This is GHA which has three triggers. ${{ github.event }}"
 
-#   comment-on-issue:
-#     if: github.event_name == 'issues'
-#     name: "Comment on Issue"
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Add a comment to the issue
-#         uses: peter-evans/create-or-update-comment@v2
-#         with:
-#           token: ${{ secrets.GITHUB_TOKEN }}
-#           issue-number: ${{ github.event.issue.number }}
-#           body: |
-#             Thank you for opening this issue!
-#             We will get back to you shortly.
+  comment-on-issue:
+    if: github.event_name == 'issues'
+    name: "Comment on Issue"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add a comment to the issue
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Thank you for opening this issue!
+            We will get back to you shortly.
