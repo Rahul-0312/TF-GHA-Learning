@@ -16,7 +16,7 @@ on:
         required: true
 
 env:
-  workflow-level: "Workflow Level Value"
+  workflow_level: "Workflow Level Value"
 
 jobs:
   conditional-check:
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       secret_code: ${{ secrets.CODE }}
-      job-level: "Job Level Value"
+      job_level: "Job Level Value"
 
     steps:
       - name: Passed the check
@@ -46,22 +46,23 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      job-level: "Job Level Value"
+      job_level: "Job Level Value"
 
     outputs:
-      job-level: ${{ steps.multi-echo.outputs.job-level }}
+      job_level: ${{ steps.multi-echo.outputs.job_level }}
 
     steps:
       - name: Echo Multi-Level ENV Variables
         id: multi-echo
         env:
-          step-level: "Step Level Value"
-        if: env.workflow-level == 'Workflow Level Value'
+          step_level: "Step Level Value"
+        if: env.workflow_level == 'Workflow Level Value'
         run: |
-          echo 'Workflow - ${{ env.workflow-level }}'
-          echo 'Job - ${{ env.job-level }}'
-          echo 'job-level=Updated Job Value >> $GITHUB_ENV'
-          echo 'Step - ${{ env.step-level }}'
+          echo 'Workflow - ${{ env.workflow_level }}'
+          echo 'Job - ${{ env.job_level }}'
+          echo 'job_level=Updated Job Value >> $GITHUB_ENV'
+          echo 'job_level=Updated Job Value >> $GITHUB_OUTPUT' # Store it aas output
+          echo 'Step - ${{ env.step_level }}'
 
   variables-job:
     name: Playing with ENV, O/P, I/P Variables
@@ -69,14 +70,14 @@ jobs:
     needs: multi-level-var-job
 
     env:
-      job-level: ${{ needs.multi-level-var-job.outputs.job-level }}
+      job_level: ${{ needs.multi-level-var-job.outputs.job_level }}
 
     steps:
       - name: Echo Multi-Level ENV Variables
         env:
-          step-level: "Step Level Value"
+          step_level: "Step Level Value"
         run: |
-          echo 'Workflow - ${{ env.workflow-level }}'
-          echo 'Job - ${{ needs.multi-level-var-job.outputs.job-level }}'
-          echo 'Step - ${{ env.step-level }}'
+          echo 'Workflow - ${{ env.workflow_level }}'
+          echo 'Job - ${{ env.job_level }}'
+          echo 'Step - ${{ env.step_level }}'
           echo 'The code user entered - ${{ inputs.code }}'
