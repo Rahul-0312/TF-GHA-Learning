@@ -19,6 +19,8 @@ jobs:
   conditional-check:
     name: Condition Check Job
     runs-on: ubuntu-latest
+    env:
+        secret_code: ${{ secrets.CODE }}
 
     steps:
       - name: Passed the check
