@@ -5,7 +5,7 @@
 # 4. Create a workflow that triggers on the check_suite event. The workflow should run a series of tests, and if any test fails,
 # it should open an issue in the repository with the details of the failure.
 
-name: Conditional Workflow
+name: Conditional & Multi-Level Variable Reference Workflow
 
 on:
   workflow_dispatch:
@@ -16,36 +16,66 @@ on:
         required: true
 
 env:
-    workflow-level: "Workflow"
+  workflow-level: "Workflow Level Value"
 
 jobs:
   conditional-check:
     name: Condition Check Job
     runs-on: ubuntu-latest
     env:
-        secret_code: ${{ secrets.CODE }}
-        job-level: "Job Level Value"
+      secret_code: ${{ secrets.CODE }}
+      job-level: "Job Level Value"
 
     steps:
       - name: Passed the check
         id: pass
         run: |
-            if [[ "${{ inputs.code }}" == "${{ env.secret_code }}" ]]; then
-                echo "result=passed" >> $GITHUB_ENV
-                echo 'The user has passed the check'
-            else
-                echo "result=failed" >> $GITHUB_OUTPUT
-            fi
+          if [[ "${{ inputs.code }}" == "${{ env.secret_code }}" ]]; then
+              echo "result=passed" >> $GITHUB_ENV
+              echo 'The user has passed the check'
+          else
+              echo "result=failed" >> $GITHUB_OUTPUT
+          fi
 
       - name: Failed the check
         if: env.result == 'failed'
         run: echo 'The user has failed the check'
 
+  multi-level-var-job:
+    name: Multi-Level Variable Reference Job
+    runs-on: ubuntu-latest
+
+    env:
+      job-level: "Job Level Value"
+
+    outputs:
+      job-level: ${{ steps.multi-echo.outputs.job-level }}
+
+    steps:
+      - name: Echo Multi-Level ENV Variables
+        id: multi-echo
+        env:
+          step-level: "Step Level Value"
+        if: env.workflow-level == 'Workflow Level Value'
+        run: |
+          echo 'Workflow - ${{ env.workflow-level }}'
+          echo 'Job - ${{ env.job-level }}'
+          echo 'job-level=Updated Job Value >> $GITHUB_OUTPUT'
+          echo 'Step - ${{ env.step-level }}'
+
+  variables-job:
+    name: Playing with ENV, O/P, I/P Variables
+    runs-on: ubuntu-latest
+
+    env:
+      job-level: ${{ needs.multi-level-var-job.outputs.job-level }}
+
+    steps:
       - name: Echo Multi-Level ENV Variables
         env:
-            step-level: "Step Level Value"
-        if: env.workflow-level == 'Workflow Level'
+          step-level: "Step Level Value"
         run: |
-            echo 'Workflow - ${{ env.workflow-level }}'
-            echo 'Job - ${{ env.job-level }}'
-            echo 'Step - ${{ env.step-level }}'
+          echo 'Workflow - ${{ env.workflow-level }}'
+          echo 'Job - ${{ env.job-level }}'
+          echo 'Step - ${{ env.step-level }}'
+          echo 'The code user entered - ${{ inputs.code }}'
