@@ -15,12 +15,16 @@ on:
         type: number
         required: true
 
+env:
+    workflow-level: "Workflow Level Value"
+
 jobs:
   conditional-check:
     name: Condition Check Job
     runs-on: ubuntu-latest
     env:
         secret_code: ${{ secrets.CODE }}
+        job-level: "Job Level Value"
 
     steps:
       - name: Passed the check
@@ -30,9 +34,17 @@ jobs:
                 echo "result=passed" >> $GITHUB_ENV
                 echo 'The user has passed the check'
             else
-                echo "result=failed" >> $GITHUB_ENV
+                echo "result=failed" >> $GITHUB_OUTPUT
             fi
 
       - name: Failed the check
         if: env.result == 'failed'
         run: echo 'The user has failed the check'
+
+      - name: Echo Multi-Level ENV Variables
+        env:
+            step-level: "Step Level Value"
+        run: |
+            echo 'Workflow - ${{ env.workflow-level }}
+            echo 'Job - ${{ env.job-level }}
+            echo 'Step - ${{ env.step-level }}
