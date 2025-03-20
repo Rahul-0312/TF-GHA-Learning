@@ -23,7 +23,9 @@ jobs:
     steps:
       - name: Passed the check
         id: pass
-        if: ${{ inputs.code }} == ${{ secrets.CODE }}
+        env:
+            code: ${{ secrets.CODE }}
+        if: ${{ inputs.code }} == ${{ env.code }}
         run: echo 'The user has passed the check'
 
       - name: Failed the check
