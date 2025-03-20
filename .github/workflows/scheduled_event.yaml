@@ -28,10 +28,10 @@ jobs:
         run: echo "todays_date=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
       
       - name: Push & Commit
-        uses: test-room-7/action-update-file@v1
+        uses: github-actions-x/commit@v2.9
         with:
-            file-path: "Scripts/sales_report.csv"
-            commit-msg: Weekly Report Updated for $todays_date
+            files: Scripts/sales_report.csv
+            commit-message: Weekly Report Updated for $todays_date
             github-token: ${{ secrets.GITHUB_TOKEN }}
-            branch: weekly_sales_report
-        
+            push-branch: weekly_sales_report
+            name: Reporter
