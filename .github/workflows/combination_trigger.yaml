@@ -66,6 +66,7 @@ jobs:
   variables-job:
     name: Playing with ENV, O/P, I/P Variables
     runs-on: ubuntu-latest
+    needs: multi-level-var-job
 
     env:
       job-level: ${{ needs.multi-level-var-job.outputs.job-level }}
