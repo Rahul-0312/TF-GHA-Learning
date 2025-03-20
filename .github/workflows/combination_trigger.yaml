@@ -25,8 +25,8 @@ jobs:
         id: pass
         env:
             secret_code: ${{ secrets.CODE }}
-        if: ${{ inputs.code }} == ${{ env.secret_code }}
         run: echo 'The user has passed the check ${{ env.secret_code }} ${{ inputs.code }}'
+        if: ${{ inputs.code }} == ${{ env.secret_code }}
 
       - name: Failed the check
         if: steps.pass.outcome == 'skipped'
