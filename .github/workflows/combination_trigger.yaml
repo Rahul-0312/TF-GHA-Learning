@@ -37,6 +37,9 @@ jobs:
         #         echo "result=failed" >> $GITHUB_ENV
         #     fi
 
+      - name: Print the result
+        run: echo ${{ env.result }}
+
       - name: Failed the check
         if: env.result != 'passed'
         run: echo 'The user has failed the check'
