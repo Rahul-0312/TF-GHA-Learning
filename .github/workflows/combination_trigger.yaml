@@ -23,7 +23,7 @@ jobs:
     steps:
       - name: Passed the check
         id: pass
-        if: ${{ inputs.code }} == $ {{ secrets.CODE }}
+        if: ${{ inputs.code }} == ${{ secrets.CODE }}
         run: echo 'The user has passed the check'
 
       - name: Failed the check
