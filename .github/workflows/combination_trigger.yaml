@@ -1,0 +1,31 @@
+# 1. Create a workflow that includes steps with conditional keywords. For example, run a step only if the previous step succeeded or only if the current branch is main.
+# 2. Create a workflow that includes a step with workflow commands to set environment variables, create output parameters, and write to logs.
+# 3. Create a workflow that demonstrates the use of dependent jobs. For example, create a workflow with three jobs: build, test, and deploy. The test job should depend
+# on the build job, and the deploy job should depend on the test job.
+# 4. Create a workflow that triggers on the check_suite event. The workflow should run a series of tests, and if any test fails,
+# it should open an issue in the repository with the details of the failure.
+
+name: Conditional Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      code:
+        description: Code to run the workflow.
+        type: number
+        required: true
+
+jobs:
+  conditional-check:
+    name: Condition Check Job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Passed the check
+        id: pass
+        if: ${{ inputs.code }} == $ {{ secrets.CODE }}
+        run: echo 'The user has passed the check'
+
+      - name: Failed the check
+        if: steps.pass.outcome == 'skipped'
+        run: echo 'The user has failed the check'
