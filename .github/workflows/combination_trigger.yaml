@@ -29,6 +29,7 @@ jobs:
     steps:
       - name: Passed the check
         id: pass
+        # Cannot use secrets comparisions with if conditions. This is because GHA evaluates the expressions before running the SHELL commands (during which these values are ALIVE).
         run: |
           if [[ "${{ inputs.code }}" == "${{ env.secret_code }}" ]]; then
               echo "result=passed" >> $GITHUB_ENV
