@@ -30,8 +30,8 @@ jobs:
               run: |
                 echo 'GITHUB BASE REF - ${{ github.base_ref }}'
                 echo 'GITHUB ACTOR - ${{ github.actor }}'
-                echo 'repo_name=GITHUB REPOSITORY - ${{ github.repository }}' >> $GITHUB_OUTPUT
-                echo 'owner_name=GITHUB REPOSITORY OWNER - ${{ github.repository_owner }}' >> $GITHUB_OUTPUT
+                echo 'repo_name=${{ github.repository }}' >> $GITHUB_OUTPUT
+                echo 'owner_name=${{ github.repository_owner }}' >> $GITHUB_OUTPUT
             
             - name: Echo all GitHub Env Vars
               run: printenv
