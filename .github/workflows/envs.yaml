@@ -1,0 +1,56 @@
+# 1. Create a workflow that prints out all the available default environment variables provided by GitHub Actions. The workflow should run on a push event and output the environment variables to the workflow logs.
+# 2. Create a workflow that sets custom environment variables at different levels (workflow, job, and step). Use these variables in subsequent steps to demonstrate their scope and usage.
+# 3. Create a workflow that uses the GITHUB_TOKEN secret to perform several GitHub API operations, such as creating an issue, adding a comment to a pull request, and updating the status of a commit. Explain why and when to use the GITHUB_TOKEN secret.
+# 4. Create a workflow that demonstrates how to use workflow commands to set environment variables dynamically during the workflow execution. Use these environment variables in subsequent steps.
+
+name: Working with Env & Secret Variables
+
+on:
+    push:
+        branches:
+            - main
+            - dev
+    workflow_dispatch:
+
+permissions:
+    issues: write
+
+jobs:
+    echo-gha-env-vars:
+        name: Print GHA Environment Vars
+        runs-on: ubuntu-latest
+
+        outputs:
+            repo_name: ${{ steps.gha-env.outputs.repo_name }}
+            owner_name: ${{ steps.gha-env.outputs.owner_name}}
+
+        steps:
+            - name: Echo three GHA Env Vars
+              id: gha-env
+              run: |
+                'echo GITHUB_BASE_REF - ${{ github.base_ref }}'
+                'echo GITHUB_ACTOR - ${{ github.actor }}'
+                'echo $repo_name=GITHUB_REPOSITORY - ${{ github.repository }}' >> $GITHUB_OUTPUT
+                'echo $owner_name=GITHUB_REPOSITORY_OWNER - ${{ github.repository_owner }}' >> $GITHUB_OUTPUT
+            
+            - name: Echo all GitHub Env Vars
+              run: printenv
+    
+    create-issue-via-api:
+        name: Create an Issue via GH APIs
+        runs-on: ubuntu-latest
+
+        env:
+            repo_name: ${{ needs.echo-gha-env-vars.outputs.repo_name }}
+            owner_name: ${{ needs.echo-gha-env-vars.outputs.owner_name }}
+
+        steps:
+            - name: CURL Call
+              run: |
+                curl -L \
+                -X POST \
+                -H "Accept: application/vnd.github+json" \
+                -H "Authorization: Bearer <YOUR-TOKEN>" \
+                -H "X-GitHub-Api-Version: 2022-11-28" \
+                https://api.github.com/repos/${{ env.owner_name }}/${{ env.repo_name }}/issues \
+                -d '{"title":"New Issue via GHA Workflows","body":"This issue is created via GitHub Actions Workflows Run - ${{ github.workflow }}","assignees":["Rahul-1315"],"milestone":1,"labels":["invalid"]}'
