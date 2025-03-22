@@ -39,6 +39,7 @@ jobs:
     create-issue-via-api:
         name: Create an Issue via GH APIs
         runs-on: ubuntu-latest
+        needs: echo-gha-env-vars
 
         env:
             repo_name: ${{ needs.echo-gha-env-vars.outputs.repo_name }}
