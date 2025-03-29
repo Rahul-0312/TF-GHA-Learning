@@ -12,15 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       var_1: ${{ steps.st_1.outputs.var_1 }}
+
     steps:
       - name: Echo Statement - 1
         id: st_1
         run: |
-          echo 'This is statement - 1'
-          echo 'var_1=hello_from_job_1' >> $GITHUB_OUTPUT
+          echo "This is statement - 1"
+          echo "var_1=hello_from_job_1" >> $GITHUB_OUTPUT
 
   echo-job-2:
     name: Echo Random Statement - 2
+    needs: echo-job-1
     runs-on: ubuntu-latest
     environment:
         echo
@@ -30,5 +32,5 @@ jobs:
     steps:
       - name: Echo Previous Job Statement
         run: |
-            echo '${{ needs.echo-job-1.outputs.var_1 }}'
+            echo 'Previous Job Var_1: ${{ needs.echo-job-1.outputs.var_1 }}'
             echo ${{ env.var_1 }}
